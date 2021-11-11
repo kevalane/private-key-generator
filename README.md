@@ -5,3 +5,8 @@ Just a simple private key generator that hopefully can be used to generate a 256
 ## Author
 
 Kevin Rasmusson, q: kevin@jkmholding.com
+
+## Credit
+
+Credit: FreeCodeCamp "How to generate your very own Bitcoin private key."
+
