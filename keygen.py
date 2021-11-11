@@ -1,5 +1,6 @@
 import time
 import secrets
+import random
 
 class KeyGen:
 
@@ -9,6 +10,7 @@ class KeyGen:
 		self.test = 0
 		self.index = 0
 		self.pool = [0]*self.poolLength
+		self.curve = int('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141', 16)
 		self.generateSecretBits()
 
 	def __str__(self):
@@ -49,4 +51,16 @@ class KeyGen:
 			charCode = ord(char)
 			self.insertByte(charCode)
 
+	# Generate an integer
+	def generateInt(self):
+		seed = int.from_bytes(self.pool, byteorder='big', signed=False)
+		random.seed(seed)
+		return random.getrandbits(self.bytes * 8)
 
+	# Generate the final key
+	def generateKey(self):
+		bigInt = self.generateInt()
+		bigInt = bigInt % (self.curve - 1)
+		bigInt = bigInt + 1
+		key = hex(bigInt)[2:]
+		return key
