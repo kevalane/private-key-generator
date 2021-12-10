@@ -19,7 +19,7 @@ class KeyGen:
 	# Function to insert byte in pool
 	def insertByte(self, num):
 		# XOR applied
-		self.pool[self.index] = num ^ self.poolLength
+		self.pool[self.index] = num
 		# Make sure we don't get out of index array error
 		if self.index >= self.poolLength - 1:
 			self.index = 0
@@ -42,7 +42,11 @@ class KeyGen:
 		# We need to insert some and shift the bits a random length
 		randInt = secrets.SystemRandom().randint(0, 50)
 		for i in range(0, randInt):
-			self.insertByte(timeInteger >> secrets.SystemRandom().randint(0, 32))
+			byte = timeInteger >> secrets.SystemRandom().randint(0,32)
+			while (byte >= 256):
+				byte /= 10
+			byte = int(byte)
+			self.insertByte(byte)
 
 	# Get user input, to be called
 	def takeInput(self, input):
