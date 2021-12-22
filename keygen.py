@@ -67,4 +67,6 @@ class KeyGen:
 		bigInt = bigInt % (self.curve - 1)
 		bigInt = bigInt + 1
 		key = hex(bigInt)[2:]
+		while(len(key) < 64):
+			key = "0" + key
 		return key
